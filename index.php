@@ -1,10 +1,10 @@
 <?php
-
+# password ok1234
 $controller = $_GET['controller'] ?? 'work';
 $action = $_GET['action'] ?? 'index';
 
 try {
-    require 'controllers/WorkController.php';
+    require 'controllers/' . ucfirst($controller) . 'Controller.php';
 } catch (Exception $exception) {
     echo $exception->getMessage();
 }

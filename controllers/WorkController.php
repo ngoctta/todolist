@@ -9,6 +9,10 @@ class WorkController
 
     public function __construct()
     {
+        session_start();
+        if(!$_SESSION['username']) {
+            header('Location: index.php?controller=user&action=login');
+        }
         $database = new Database();
         $connection = $database->getConnection();
         $this->model = new Work($connection);
@@ -24,7 +28,7 @@ class WorkController
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $data = [
-                'name' => $_POST['name'],
+                'name' => htmlspecialchars($_POST['name']),
                 'start_date' => $_POST['start_date'],
                 'end_date' => $_POST['end_date'],
                 'status' => $_POST['status']
